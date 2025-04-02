@@ -30,3 +30,12 @@ fi
 
 dnf install mysql -y
 validate $? "installing mysql"
+
+systemctl enable mysqld
+validate $? "eabling mysql service"
+
+systemctl start mysqld
+validate $? "starting mysql service"
+
+mysql_secure_installation --set-root-pass ExpenseApp@1
+validate $? "password setting"
