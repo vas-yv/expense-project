@@ -12,19 +12,19 @@ N="\e[0m"
 validate(){
     if [ $1 -ne 0 ]
     then
-        echo "$2..Failed"
+        echo -e "$2..$R Failed $N"
         exit 1
     else
-        echo "$2..Success"
+        echo -e "$2..$G Success $n"
     fi        
 }
 
 if [ $userid -ne 0 ]
 then
-    echo "user should run root access"
+    echo -e "$R user should run root access"
     exit 1
 else
-     echo "your super user"
+     echo -e "$G your super user"
 fi
 
 dnf install nginx -y &>>$logfile
@@ -51,5 +51,3 @@ validate $? "configuring frontcode with backed p ip add"
 
 systemctl restart nginx &>>$logfile
 validate $? "restarting nginx"
-
-        
