@@ -28,8 +28,8 @@ else
     echo -e "$G you are super user"
 fi
 
-dnf install mysql -y &>>$logfile
-validate $? "installing mysql"
+dnf install git -y 
+validate $? "installing git"
 
 #systemctl enable mysqld &>>$logfile
 #validate $? "eabling mysql service"
