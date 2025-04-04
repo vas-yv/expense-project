@@ -9,22 +9,25 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+echo "please enter db root password:"
+read -s mysql_root_password
+
 validate(){
     if [ $1 -ne 0 ]
     then
-        echo "$2..failed"
+        echo -e "$2..$R failed $N"
         exit 1
     else
-        echo "$2..success"
+        echo -e "$2..$G success $N"
     fi    
 }
 
 if [ $userid -ne 0 ]
 then
-    echo "user should run with root access"
+    echo -e "$R user should run with root access"
     exit 1
 else
-    echo "super user"
+    echo -e "$G super user"
 fi
 
 dnf module disable nodejs -y &>>$logfile
@@ -42,7 +45,7 @@ then
     useradd expense &>>$logfile
     validate $? "creating expense user"
 else
-     echo "user already created..skipping"
+     echo -e "user already created..$Y skipping $N"
 fi         
 
 mkdir -p /app 
@@ -75,7 +78,7 @@ validate $? "enabling backend"
 dnf install mysql -y &>>$logfile
 validate $? "installing mysql"
 
-mysql -h 172.31.82.88 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$logfile
+mysql -h 172.31.82.88 -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$logfile
 validate $? "configuring"
 
 systemctl restart backend &>>$logfile
