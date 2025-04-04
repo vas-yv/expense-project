@@ -43,7 +43,13 @@ validate $? "downloading frontend code"
 
 cd /usr/share/nginx/html
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$logfile
 validate $? "unzipping frontend code"
+
+cp /home/ec2-user/expense-project/expense.conf /etc/nginx/default.d/expense.conf
+validate $? "configuring frontcode with backed p ip add"
+
+systemctl restart nginx &>>$logfile
+validate $? "restarting nginx"
 
         
