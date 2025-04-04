@@ -28,14 +28,14 @@ else
     echo -e "$G you are super user"
 fi
 
-dnf install git -y &>>$logfile
-validate $? "installing git"
+dnf install mysql-server -y &>>$logfile
+validate $? "installing mysql server"
 
-#systemctl enable mysqld &>>$logfile
-#validate $? "eabling mysql service"
+systemctl enable mysqld &>>$logfile
+validate $? "eabling mysql server"
 
-#systemctl start mysqld &>>$logfile
-#validate $? "starting mysql service"
+systemctl start mysqld &>>$logfile
+validate $? "starting mysql server"
 
-#mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$logfile
-#validate $? "password setting"
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$logfile
+validate $? "root password setting up"
