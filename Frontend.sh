@@ -36,4 +36,9 @@ validate $? "enabling nginx"
 systemctl start nginx
 validate $? "starting nginx"
 
+rm -rf /usr/share/nginx/html/*
+
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+validate $? "downloading frontend code"
+
         
