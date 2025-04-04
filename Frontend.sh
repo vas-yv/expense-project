@@ -33,4 +33,7 @@ validate $? "installing nginx"
 systemctl enable nginx &>>$logfile
 validate $? "enabling nginx"
 
+systemctl start nginx
+validate $? "starting nginx"
+
         
