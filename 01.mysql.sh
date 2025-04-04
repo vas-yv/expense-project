@@ -28,7 +28,7 @@ else
     echo -e "$G you are super user"
 fi
 
-dnf install git -y 
+dnf install git -y &>>$logfile
 validate $? "installing git"
 
 #systemctl enable mysqld &>>$logfile
