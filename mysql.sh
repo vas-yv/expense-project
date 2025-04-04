@@ -39,3 +39,13 @@ validate $? "starting mysql server"
 
 #mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$logfile
 #validate $? "root password setting up"
+
+#below code will be useful for idempotent nature
+mysql -h db.daws78s.online -uroot -pExpenseApp@1 -e 'show databases;' &>>$logfile
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$logfile
+    validate $? "mysql root password setup"
+else
+    echo -e "Mysql Root password is already setup...$Y Skipping $N"
+fi
