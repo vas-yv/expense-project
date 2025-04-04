@@ -45,11 +45,11 @@ else
      echo "user already created..skipping"
 fi         
 
-mkdir /app
+mkdir -p /app 
 validate $? "creating app dir"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$logfile
-validate $? "downloading code"
+validate $? "downloading backend code"
 
 cd /app
 npm install &>>$logfile
