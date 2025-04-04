@@ -27,13 +27,13 @@ else
     echo "super user"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>$logfile
 validate $? "disable existing nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>$logfile
 validate $? "enabling nodejs 20"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$logfile
 validate $? "installing nodejs"
 
 useradd expense
@@ -42,31 +42,31 @@ validate $? "creating expense user"
 mkdir /app
 validate $? "creating app dir"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$logfile
 validate $? "downloading code"
 
 cd /app
-npm install
+npm install &>>$logfile
 validate $? "installing dependencies"
 
 cp /home/ec2-user/expense-project/backend.service /etc/systemd/system/backend.service
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$logfile
 validate $? "daemon reload"
 
-systemctl start backend
+systemctl start backend &>>$logfile
 validate $? "starting backend"
 
 
-systemctl enable backend
+systemctl enable backend &>>$logfile
 validate $? "enabling backend"
 
 
-dnf install mysql -y
+dnf install mysql -y &>>$logfile
 validate $? "installing mysql"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h 172.31.82.88 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$logfile
 validate $? "configuring"
 
-systemctl restart backend
+systemctl restart backend &>>$logfile
 validate $? "restarting backend"
