@@ -30,4 +30,7 @@ fi
 dnf install nginx -y &>>$logfile
 validate $? "installing nginx"
 
+systemctl enable nginx &>>$logfile
+validate $? "enabling nginx"
+
         
