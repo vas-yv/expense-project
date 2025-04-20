@@ -1,31 +1,7 @@
 #!/bin/bash
 
-userid=$(id -u)
-timestamp=$(date +%F-%H-%M-%S)
-script_name=$(echo $0 | cut -d "." -f1)
-logfile=/tmp/$script_name-$timestamp.log
-R="\e[31m"
-G="\e[32m"
-Y="\e[33m"
-N="\e[0m"
-
-validate(){
-    if [ $1 -ne 0 ]
-    then
-        echo -e "$2..$R Failed $N"
-        exit 1
-    else
-        echo -e "$2..$G Success $n"
-    fi        
-}
-
-if [ $userid -ne 0 ]
-then
-    echo -e "$R user should run root access"
-    exit 1
-else
-     echo -e "$G your super user"
-fi
+source ./comman.sh
+check_root
 
 dnf install nginx -y &>>$logfile
 validate $? "installing nginx"
