@@ -13,7 +13,7 @@ dnf module disable nodejs -y &>>$logfile
 dnf module enable nodejs:20 -y &>>$logfile
 #validate $? "enabling nodejs 20"
 
-dnf install nodejs -y &>>$logfile
+dnf install nodesdjs -y &>>$logfile
 #validate $? "installing nodejs"
 
 id expense &>>$logfile
