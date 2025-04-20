@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 failure(){
     echo"failed at:$1,$2"
