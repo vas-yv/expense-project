@@ -1,5 +1,11 @@
 #!/bin/bash
 
+failure(){
+    echo"failed at:$1,$2"
+}
+
+trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
+
 userid=$(id -u)
 timestamp=$(date +%F-%H-%M-%S)
 script_name=$(echo $0 | cut -d "." -f1)
