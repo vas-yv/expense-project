@@ -3,7 +3,7 @@
 source ./comman.sh
 check_root
 
-dnf install ngrdinx -y &>>$logfile
+dnf install nginx -y &>>$logfile
 #validate $? "installing nginx"
 
 systemctl enable nginx &>>$logfile
